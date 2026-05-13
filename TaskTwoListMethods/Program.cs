@@ -16,6 +16,7 @@ while (isRunning)
     Console.WriteLine("L - Display the largest number");
     Console.WriteLine("F - finad a number");
     Console.WriteLine("C - Clear the whole list ");
+    Console.WriteLine("SORT - sort the list in asc and desc order");
     Console.WriteLine("Q - Quit");
     Console.WriteLine("==============================");
     Console.ForegroundColor = ConsoleColor.White;
@@ -87,32 +88,39 @@ while (isRunning)
             break;
 
         case "S":
-            double minNumber = list[0];
-            for (int i = 1; i < list.Count; i++)
+            if (list.Count > 0)
             {
-                if (minNumber > list[i])
+                double minNumber = list[0];
+                for (int i = 1; i < list.Count; i++)
                 {
-                    minNumber = list[i];
+                    if (minNumber > list[i])
+                    {
+                        minNumber = list[i];
+                    }
                 }
+                Console.WriteLine($"the smallest number in the list is ==> {minNumber}");
             }
-            Console.WriteLine($"the smallest number in the list is ==> {minNumber}");
-
             break;
 
         case "L":
-            double maxNum = list[0];
-            for (int i = 1; i < list.Count; i++)
+
+            if (list.Count > 0)
             {
-                if (maxNum > list[i])
+                double maxNum = list[0];
+                for (int i = 1; i < list.Count; i++)
                 {
-                    maxNum = list[i];
+                    if (maxNum > list[i])
+                    {
+                        maxNum = list[i];
+                    }
                 }
+                Console.WriteLine($"the largest number in the list is ==> {maxNum}");
+
             }
-            Console.WriteLine($"the largest number in the list is ==> {maxNum}");
             break;
 
         case "F":
-            try 
+            try
             {
 
                 Console.Write("enter the number to search for ==> ");
@@ -157,6 +165,82 @@ while (isRunning)
         case "C":
             list.Clear();
             Console.WriteLine("the list is cleared");
+            break;
+
+
+        case "SORT":
+
+            Console.Write("Do you want it in Desc order Enter (Y/N) : ");
+            String isDesc = Console.ReadLine().Trim().ToUpper();
+            if (isDesc == "N")
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int index = i;
+                    for (int j = index + 1; j < list.Count; j++)
+                    {
+                        if (list[index] > list[j])
+                        {
+                            double temp = list[index];
+                            list[index] = list[j];
+                            list[j] = temp;
+
+                        }
+                    }
+
+                }
+            }
+            else if (isDesc == "Y")
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int index = i;
+                    for (int j = index + 1; j < list.Count; j++)
+                    {
+                        if (list[index] < list[j])
+                        {
+                            double temp = list[index];
+                            list[index] = list[j];
+                            list[j] = temp;
+
+                        }
+                    }
+
+                }
+            }
+            else { 
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("invalid input, must type (Y/N) !!");
+                Console.ForegroundColor = ConsoleColor.White;
+                break; }
+
+
+            if (list.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("==============================");
+                Console.WriteLine("the list is empty");
+                Console.WriteLine("==============================");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.Write("list = [");
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (i != list.Count - 1)
+                    {
+                        Console.Write($"{list[i]},");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{list[i]}]");
+
+                    }
+                }
+            }
+
             break;
 
         default:
